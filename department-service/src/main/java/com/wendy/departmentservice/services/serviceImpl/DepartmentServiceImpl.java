@@ -11,10 +11,9 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 @Service
-@NoArgsConstructor
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class DepartmentServiceImpl implements DepartmentService {
-private DepartmentRepository departmentRepository;
+private final DepartmentRepository departmentRepository;
 
     @Override
     public DepartmentDto saveDepartment(DepartmentDto departmentDto) {

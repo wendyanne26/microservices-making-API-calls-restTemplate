@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/employee")
 public class EmployeeController {
-    private EmployeeService employeeService;
+    private final EmployeeService employeeService;
     @PostMapping("/save")
     public ResponseEntity<EmployeeDto> saveEmployee(@RequestBody EmployeeDto employeeDto){
         EmployeeDto savedEmployee = employeeService.saveEmployee(employeeDto);

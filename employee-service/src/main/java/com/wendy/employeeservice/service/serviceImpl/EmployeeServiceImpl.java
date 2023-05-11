@@ -8,17 +8,17 @@ import com.wendy.employeeservice.repository.EmployeeRepository;
 import com.wendy.employeeservice.service.EmployeeService;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 @Service
-@AllArgsConstructor
-@NoArgsConstructor
+@RequiredArgsConstructor
 public class EmployeeServiceImpl implements EmployeeService {
-private EmployeeRepository employeeRepository;
-private RestTemplate restTemplate;
+private final EmployeeRepository employeeRepository;
+private final RestTemplate restTemplate;
 
     @Override
     public EmployeeDto saveEmployee(EmployeeDto employeeDto) {
@@ -30,7 +30,7 @@ private RestTemplate restTemplate;
     @Override
     public ApiResponseDto getEmployeeById(Long id) {
         Employee employee = employeeRepository.findById(id).orElseThrow();
-        ResponseEntity<DepartmentDto> responseEntity = restTemplate.getForEntity("http://localhost:8080/api/v1/employee/" + employee.getDepartmentCode(),
+        ResponseEntity<DepartmentDto> responseEntity = restTemplate.getForEntity("http://localhost:8080/api/v1/department/" + employee.getDepartmentCode(),
                 DepartmentDto.class);
         DepartmentDto departmentDto = responseEntity.getBody();
         EmployeeDto employeeDto = mapToEmployeeDto(employee);

@@ -10,20 +10,19 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@AllArgsConstructor
-@NoArgsConstructor
+@RequiredArgsConstructor
 @RequestMapping("/api/v1/department")
 public class DepartmentController {
-    private DepartmentService departmentService;
+    private final DepartmentService departmentService;
     @PostMapping("/save")
     public ResponseEntity<DepartmentDto> saveDepartment(@RequestBody DepartmentDto departmentDto){
         DepartmentDto savedDto = departmentService.saveDepartment(departmentDto);
         return new ResponseEntity<>(savedDto, HttpStatus.OK);
     }
     @GetMapping("{departmentCode}")
-    public ResponseEntity<String> getDepartment(@PathVariable String departmentCode){
-        departmentService.getDepartmentByCode(departmentCode);
-        return new ResponseEntity<>("found", HttpStatus.OK);
+    public ResponseEntity<DepartmentDto> getDepartment(@PathVariable String departmentCode){
+       DepartmentDto foundDepartment = departmentService.getDepartmentByCode(departmentCode);
+        return new ResponseEntity<>(foundDepartment, HttpStatus.OK);
     }
 
 }
